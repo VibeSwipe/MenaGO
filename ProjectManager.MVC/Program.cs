@@ -1,10 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using ProjectManager.Application.Extensions;
-using ProjectManager.Infrastructure.Extensions;
-using ProjectManager.Infrastructure.Persistence;
-using ProjectManager.Infrastructure.Seeders;
 
 var builder = WebApplication.CreateBuilder(args);
 
