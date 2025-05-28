@@ -17,6 +17,7 @@ namespace ProjectManager.Domain.Entities
         public DateTime CreationDate { get; set; } = DateTime.Now;
         public DateTime FinishDate { get; set; } = default!;
         public string? EncodedName { get; set; }
+        public List<ProjectTask> ProjectTasks { get; set; } = new();
         public List<ProjectUser> ProjectContributors { get; set; } = new();
         public List<ProjectRole> ProjectRoles { get; set; } = new();
 
