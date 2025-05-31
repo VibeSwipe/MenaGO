@@ -1,0 +1,67 @@
+﻿@model ProjectManager.Application.ProjectTask.Commands.EditProjectTask.EditProjectTaskCommand
+
+@{
+    ViewData["Title"] = "EditProjectTask";
+}
+
+<div class="text-center">
+    <h1>@Model.Name</h1>
+
+    <h4>Edit Task Details</h4>
+</div>
+<hr />
+<div class="row justify-content-center">
+    <div class="col-md-4">
+        <form asp-controller="ProjectTask" asp-action="UpdateProjectTask">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
+            <input asp-for="Id" class="form-control" type="hidden"/>
+            <input asp-for="ProjectContributors" class="form-control" type="hidden"/>
+            <input asp-for="IsEditable" class="form-control" type="hidden" />
+
+                
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TaskProgressStatus" class="control-label">Status</label>
+                <select asp-for="TaskProgressStatus" class="form-control">
+                    <option value="NotAssigned">Not Assigned</option>
+                    <option value="InProgress">In Progress</option>
+                    <option value="Completed">Completed</option>
+                </select>
+                <span asp-validation-for="TaskProgressStatus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AssignedUserEmail" class="control-label">Assigned User Email</label>
+                <select asp-for="AssignedUserEmail" class="form-control">
+                    <option value="Unassigned">Unassigned</option>
+                    @foreach(var projectUser in Model.ProjectContributors)
+                    {
+                        <option value="@projectUser.Email">@projectUser.Email</option>
+                    }
+                </select>
+                <span asp-validation-for="TaskProgressStatus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Deadline" class="control-label"></label>
+                <input asp-for="Deadline" class="form-control" />
+                <span asp-validation-for="Deadline" class="text-danger"></span>
+            </div>
+            <div class="form-group text-center m-4">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
