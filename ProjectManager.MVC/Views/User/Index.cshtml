@@ -1,0 +1,50 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using ProjectManager.Application.Users
+@using ProjectManager.Application.Users.Commands.DeleteUser
+@using ProjectManager.Application.Users.Commands.EditUserRoles
+@using ProjectManager.Domain.Entities
+@using System.Security.Claims
+@model IEnumerable<UserDto>
+
+@{
+    ViewData["Title"] = "Users";
+}
+
+<h1 class="my-4">User Management</h1>
+
+<table class="table table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Username</th>
+            <th scope="col">Email</th>
+            <th scope="col">Roles</th>
+            <th scope="col" class="text-center">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.UserName</td>
+                <td>@user.Email</td>
+                <td>
+                    @foreach (var role in user.Roles)
+                    {
+                        <span class="badge badge-primary text-dark">@role</span>
+                    }
+                </td>
+                <td class="d-flex justify-content-center align-items-center">
+                    <partial name="_EditUserRoles" model="new EditUserRolesCommand() { Email = user.Email, Roles = user.Roles }"/>
+                    <partial name="_DeleteUser" model="new DeleteUserCommand() { Email = user.Email} "/>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script src="~/js/User/UserManagment.js"></script>
+}
+
+
+

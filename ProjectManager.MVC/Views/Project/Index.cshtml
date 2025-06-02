@@ -1,0 +1,60 @@
+﻿@model IEnumerable<ProjectManager.Application.Project.ProjectDto>
+
+@{
+    ViewData["Title"] = "Projects";
+}
+
+<div class="row d-flex justify-content-center flex-column align-items-center">
+    <h1 class="text-center">Projects</h1>
+    <p class="text-center">
+        <a asp-action="Create" class="btn btn-outline-primary">Create New</a>
+    </p>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th class="text-center">
+                <span>Finish Date</span>
+            </th>
+            <th class="text-center">
+                <span>Actions</span>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="align-middle text-center">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                @{
+                    var textColorClass = "";
+                    if (DateTime.Compare(item.FinishDate, DateTime.Now) < 0)
+                    {
+                        textColorClass = "text-danger fw-bold";
+                    } else if ((item.FinishDate - DateTime.Now).TotalDays < 7)
+                    {
+                        textColorClass = "text-warning";
+                    }
+                }
+                <td class="align-middle text-center">
+                    <span class="@textColorClass">@Html.DisplayFor(modelItem => item.FinishDate)</span>
+                </td>
+                <td style="display: flex; justify-content: flex-end; align-items: center;">
+                    <a class="btn btn-outline-primary m-1" asp-controller="Project" asp-action="Details" asp-route-projectEncodedName="@item.EncodedName">Details</a>
+                    @if (item.IsEditable)
+                    {
+                        <a class="btn btn-outline-dark m-1" asp-controller="Project" asp-action="Edit" asp-route-projectEncodedName="@item.EncodedName">Edit</a>
+                        <a class="btn btn-danger m-1" asp-controller="Project" asp-action="Delete" asp-route-projectEncodedName="@item.EncodedName">Delete</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
