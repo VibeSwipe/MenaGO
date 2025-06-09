@@ -1,15 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ProjectManager.Application.Users;
 using ProjectManager.Domain.Contracts.Repositories;
 using ProjectManager.Domain.Entities;
-using ProjectManager.Infrastructure.Migrations;
 using ProjectManager.Infrastructure.Persistence;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProjectManager.Infrastructure.Repositories
 {
